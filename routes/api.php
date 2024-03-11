@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\WorkshiftController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
+    // работа с пользователями
     Route::get('/user', [UsersController::class, 'showUsers']);
     Route::post('/user', [UsersController::class, 'addUser']);
+    // работа с сменами
+    Route::post('/work-shift', [WorkshiftController::class, 'createWorkshift']);
 });

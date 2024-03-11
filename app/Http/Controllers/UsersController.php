@@ -23,7 +23,7 @@ class UsersController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['code' => 400, 'errors' => $validator->errors()]);
+            return response()->json(['code' => 422, 'errors' => $validator->errors()]);
         }
 
         $photo_file = $request->file('photo_file')->store('photos');

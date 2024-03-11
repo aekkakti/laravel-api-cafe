@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Users extends Authenticatable
+class Workshift extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -17,16 +17,13 @@ class Users extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'surname',
-        'patronymic',
-        'login',
-        'password',
-        'photo_file',
-        'role_id'
+        'start',
+        'end'
     ];
 
     protected $hidden = [
         'id'
     ];
+
+    protected $table = 'work_shifts';
 }
