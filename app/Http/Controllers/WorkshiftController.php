@@ -30,7 +30,20 @@ class WorkshiftController extends Controller
             return response()->json(['id' => $workshift_id, $workshift]);
         }
         else {
-            return response()->json(['code' => 422, 'errors' => 'Дата указана некорректно']);
+            return response()->json(['code' => 422, 'error' => 'Дата указана некорректно']);
+        }
+    }
+
+    public function openWorkshift(Request $request, Workshift $workshift){
+        $active = $request->active;
+        if ($active === true) {
+            $workshift->update([
+                'active' => $request->active,
+            ]);
+            return response()->json([$workshift]);
+        }
+        else {
+            return response()->json(['code' => 403, 'error' => 'Forbidden. There are open shifts!']);
         }
     }
 }
