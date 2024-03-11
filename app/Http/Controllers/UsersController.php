@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
@@ -25,10 +26,14 @@ class UsersController extends Controller
             return response()->json(['code' => 400, 'errors' => $validator->errors()]);
         }
 
+        $photo_file = $request->file('photo_file')->store('photos');
         $user = Users::create([
            'name' => $request->name,
-           'login' => $request->login,
+           'surname' => $request->surname,
+           'patronymic' => $request->patronymic,
+            'login' => $request->login,
             'password' => $request->password,
+           'photo_file' => $photo_file,
             'role_id' => $request->role_id,
         ]);
 
