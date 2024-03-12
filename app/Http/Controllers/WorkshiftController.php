@@ -36,16 +36,26 @@ class WorkshiftController extends Controller
         }
     }
 
-    public function openWorkshift(Request $request, Workshift $workshift){
-        $active = $request->active;
-        if ($active === true) {
-            $workshift->update([
-                'active' => $request->active,
-            ]);
-            return response()->json([$workshift]);
+    public function openWorkshift(Workshift $workshift){
+        $openedWorkshiftsCount = Workshift::where('active', 1)->count();
+        if ($openedWorkshiftsCount === 0) {
+            $workshift->active = 1;
+            $workshift->save();
+            return Workshift::select('id','start', 'end', 'active')->where('id', $workshift->id)->get();
         }
         else {
             return response()->json(['code' => 403, 'error' => 'Forbidden. There are open shifts!']);
+        }
+    }
+
+    public function closeWorkshift(Workshift $workshift){
+        if ($workshift->active === 1) {
+            $workshift->active = 0;
+            $workshift->save();
+            return Workshift::select('id','start', 'end', 'active')->where('id', $workshift->id)->get();
+        }
+        else {
+            return response()->json(['code' => 403, 'error' => 'Forbidden. The shift is already closed!']);
         }
     }
 }
