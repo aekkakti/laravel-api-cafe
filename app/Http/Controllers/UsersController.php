@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class UsersController extends Controller
 {
     public function showUsers() {
-        return Users::all();
+        return Users::select('id','name', 'login', 'status', 'role_id')->get();
     }
 
     public function addUser(Request $request) {
