@@ -17,12 +17,9 @@ class Workshift extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'start',
         'end'
-    ];
-
-    protected $hidden = [
-        'id'
     ];
 
     protected $table = 'work_shifts';
