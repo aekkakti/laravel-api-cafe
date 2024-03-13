@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ShiftWorker;
 use App\Models\Users;
 use App\Models\Workshift;
 use Illuminate\Http\Request;
@@ -57,5 +58,18 @@ class WorkshiftController extends Controller
         else {
             return response()->json(['code' => 403, 'error' => 'Forbidden. The shift is already closed!']);
         }
+    }
+
+    public function addWorkerToWorkshift(Request $request, Workshift $workshift) {
+        $shiftworker_id = Users::where('id', '=', $request->user_id)->first()->id;
+        if (ShiftWorker::where('user_id', $shiftworker_id)) {
+            return response()->json(['message' => '"Forbidden. The worker is already on shift!"']);
+        }
+        $on_shiftwork = ShiftWorker::create([
+            'work_shift_id' => $workshift -> id,
+            'user_id' => $shiftworker_id
+        ]);
+
+        return response()->json(['id_user' => $shiftworker_id, 'status' => 'added']);
     }
 }

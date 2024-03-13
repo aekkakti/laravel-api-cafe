@@ -33,4 +33,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/work-shift', [WorkshiftController::class, 'createWorkshift']);
     Route::get('/work-shift/{workshift}/open', [WorkshiftController::class, 'openWorkshift']);
     Route::get('/work-shift/{workshift}/close', [WorkshiftController::class, 'closeWorkshift']);
+    Route::post('/work-shift/{workshift}/user', [WorkshiftController::class, 'addWorkerToWorkshift']);
 });
