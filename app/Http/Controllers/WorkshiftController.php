@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\ShiftWorker;
 use App\Models\Users;
 use App\Models\Workshift;
@@ -71,5 +72,9 @@ class WorkshiftController extends Controller
         ]);
 
         return response()->json(['id_user' => $shiftworker_id, 'status' => 'added']);
+    }
+
+    public function watchOrder() {
+        return Order::select('table_id', 'shift_worker_id', 'status_order_id', 'created_at')->get();
     }
 }

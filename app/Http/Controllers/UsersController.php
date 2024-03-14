@@ -19,7 +19,8 @@ class UsersController extends Controller
             'name' => 'required',
             'login' => 'required',
             'password' => 'required',
-            'role_id' => 'required'
+            'role_id' => 'required',
+            'photo_file' => 'file|mimes:jpeg, png'
         ]);
 
         if ($validator->fails()) {
